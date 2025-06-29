@@ -3,6 +3,7 @@
 import type React from "react"
 import type { ColorPalette } from "@/types"
 import { useLanguage } from "@/contexts/LanguageContext"
+import { useScrollReveal } from "@/hooks/use-scroll-reveal"
 
 const InefficiencyIcon = ({ colors }: { colors: ColorPalette }) => (
   <svg viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg" className="h-20 w-20 mb-4">
@@ -69,6 +70,30 @@ interface ProblemSolutionProps {
 
 const problemIcons = [InefficiencyIcon, LostOppsIcon, BadExperienceIcon]
 
+const ProblemCard: React.FC<{ problem: { id: number; title: string; description: string }; Icon: React.FC<{ colors: ColorPalette }>; colors: ColorPalette }> = ({ problem, Icon, colors }) => {
+  const ref = useScrollReveal<HTMLDivElement>()
+  return (
+    <div
+      ref={ref}
+      className="reveal problem-card p-8 rounded-xl shadow-2xl transition-all duration-300 hover:-translate-y-2 glassmorphism flex flex-col items-center text-center"
+      style={{
+        borderColor: `rgba(${Number.parseInt(colors.accent.slice(1, 3), 16)},${Number.parseInt(colors.accent.slice(3, 5), 16)},${Number.parseInt(colors.accent.slice(5, 7), 16)},0.2)`,
+        "--problem-card-hover-shadow-color": `${colors.accent}4D`,
+      } as React.CSSProperties}
+    >
+      <div style={{ color: colors.accent }}>
+        <Icon colors={colors} />
+      </div>
+      <h3 className="text-xl sm:text-2xl font-semibold mt-2 mb-3" style={{ color: colors.neutral }}>
+        {problem.title}
+      </h3>
+      <p className="text-lg leading-relaxed" style={{ color: colors.neutral, opacity: 0.85 }}>
+        {problem.description}
+      </p>
+    </div>
+  )
+}
+
 const ProblemSolution: React.FC<ProblemSolutionProps> = ({ colors }) => {
   const { t } = useLanguage()
   const problems = t.problemSolution.problems
@@ -90,28 +115,7 @@ const ProblemSolution: React.FC<ProblemSolutionProps> = ({ colors }) => {
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
           {problems.map((problem, index) => {
             const Icon = problemIcons[index]
-            return (
-              <div
-                key={problem.id}
-                className="problem-card p-8 rounded-xl shadow-2xl transition-all duration-300 hover:-translate-y-2 glassmorphism flex flex-col items-center text-center"
-                style={
-                  {
-                    borderColor: `rgba(${Number.parseInt(colors.accent.slice(1, 3), 16)},${Number.parseInt(colors.accent.slice(3, 5), 16)},${Number.parseInt(colors.accent.slice(5, 7), 16)},0.2)`,
-                    "--problem-card-hover-shadow-color": `${colors.accent}4D`,
-                  } as React.CSSProperties
-                }
-              >
-                <div style={{ color: colors.accent }}>
-                  <Icon colors={colors} />
-                </div>
-                <h3 className="text-xl sm:text-2xl font-semibold mt-2 mb-3" style={{ color: colors.neutral }}>
-                  {problem.title}
-                </h3>
-                <p className="text-lg leading-relaxed" style={{ color: colors.neutral, opacity: 0.85 }}>
-                  {problem.description}
-                </p>
-              </div>
-            )
+            return <ProblemCard key={problem.id} problem={problem} Icon={Icon} colors={colors} />
           })}
         </div>
         <div className="mt-16 text-center">

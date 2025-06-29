@@ -8,17 +8,29 @@ import WhyNeurovia from "@/components/WhyNeurovia"
 import CTASection from "@/components/CTASection"
 import Footer from "@/components/Footer"
 import type { ColorPalette } from "@/types"
-import AnimatedBackground from "@/components/AnimatedBackground"
+import dynamic from "next/dynamic"
+import { useTheme } from "next-themes"
+const AnimatedBackground = dynamic(() => import("@/components/AnimatedBackground"), {
+  ssr: false,
+})
 import { LanguageProvider } from "@/contexts/LanguageContext"
 import AboutUs from "@/components/AboutUs"
 
 export default function HomePage() {
-  const colors: ColorPalette = {
+  const { resolvedTheme } = useTheme()
+  const darkColors: ColorPalette = {
     primary: "#0B1F3A",
-    secondary: "#1F4D7A",
-    accent: "#FFC857",
+    secondary: "#12375A",
+    accent: "#FFB443",
     neutral: "#F4F4F9",
   }
+  const lightColors: ColorPalette = {
+    primary: "#ffffff",
+    secondary: "#F1F5F9",
+    accent: "#FF8C42",
+    neutral: "#0B1F3A",
+  }
+  const colors = resolvedTheme === "light" ? lightColors : darkColors
 
   return (
     <LanguageProvider>
