@@ -25,8 +25,8 @@ export default function HomePage() {
     neutral: "#F4F4F9",
   }
   const lightColors: ColorPalette = {
-    primary: "#F4F4F9",
-    secondary: "#1F4D7A",
+    primary: "#ffffff",
+    secondary: "#E6EEF8",
     accent: "#FFC857",
     neutral: "#0B1F3A",
   }
