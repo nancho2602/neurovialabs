@@ -2,6 +2,7 @@ import type React from "react"
 import type { Metadata } from "next"
 import { Inter } from "next/font/google"
 import Analytics from "@/components/Analytics"
+import { ThemeProvider } from "@/components/theme-provider"
 import "./globals.css"
 
 const inter = Inter({
@@ -164,9 +165,11 @@ export default function RootLayout({
         <link rel="dns-prefetch" href="https://fonts.googleapis.com" />
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
       </head>
-      <body className={`${inter.className} bg-primary text-neutral antialiased`} suppressHydrationWarning={true}>
-        <Analytics />
-        {children}
+      <body className={`${inter.className} antialiased`} suppressHydrationWarning={true}>
+        <ThemeProvider attribute="class" defaultTheme="dark" enableSystem={false}>
+          <Analytics />
+          {children}
+        </ThemeProvider>
       </body>
     </html>
   )

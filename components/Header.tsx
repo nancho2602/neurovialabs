@@ -4,6 +4,7 @@ import type React from "react"
 import { useState, useEffect, useRef, useCallback } from "react"
 import type { ColorPalette } from "@/types"
 import { Menu, X, Globe } from "lucide-react"
+import ThemeToggle from "./ThemeToggle"
 import { useLanguage } from "@/contexts/LanguageContext"
 import SEOOptimizedImage from "./SEOOptimizedImage"
 
@@ -162,6 +163,10 @@ const Header: React.FC<HeaderProps> = ({ colors }) => {
                 </button>
               </div>
             )}
+          </div>
+
+          <div className="ml-4">
+            <ThemeToggle />
           </div>
 
           <div className="md:hidden ml-2">
