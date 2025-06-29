@@ -8,7 +8,10 @@ import WhyNeurovia from "@/components/WhyNeurovia"
 import CTASection from "@/components/CTASection"
 import Footer from "@/components/Footer"
 import type { ColorPalette } from "@/types"
-import AnimatedBackground from "@/components/AnimatedBackground"
+import dynamic from "next/dynamic"
+const AnimatedBackground = dynamic(() => import("@/components/AnimatedBackground"), {
+  ssr: false,
+})
 import { LanguageProvider } from "@/contexts/LanguageContext"
 import AboutUs from "@/components/AboutUs"
 

@@ -1,6 +1,7 @@
 import type React from "react"
 import type { Metadata } from "next"
 import { Inter } from "next/font/google"
+import Analytics from "@/components/Analytics"
 import "./globals.css"
 
 const inter = Inter({
@@ -164,6 +165,7 @@ export default function RootLayout({
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
       </head>
       <body className={`${inter.className} bg-primary text-neutral antialiased`} suppressHydrationWarning={true}>
+        <Analytics />
         {children}
       </body>
     </html>
