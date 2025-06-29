@@ -5,6 +5,7 @@ import { useEffect, useRef } from "react"
 import type { ColorPalette } from "@/types"
 import { ChevronRight } from "lucide-react"
 import { useLanguage } from "@/contexts/LanguageContext"
+import SEOOptimizedImage from "./SEOOptimizedImage"
 
 const HeroVisual: React.FC<{ colors: ColorPalette }> = ({ colors }) => (
   <svg
@@ -145,11 +146,22 @@ const Hero: React.FC<HeroProps> = ({ colors }) => {
       className="relative min-h-screen flex items-center justify-center text-center overflow-hidden"
       style={{ backgroundColor: colors.primary }}
     >
+      <div className="absolute inset-0">
+        <SEOOptimizedImage
+          src="/assets/hero_background.jpg"
+          alt="Automation abstract background"
+          width={1920}
+          height={1080}
+          className="w-full h-full object-cover"
+          style={{ opacity: 0.35 }}
+          priority
+        />
+      </div>
       <div className="absolute inset-0 opacity-20">
         <HeroVisual colors={colors} />
       </div>
 
-      <div className="absolute inset-0 bg-gradient-to-b from-transparent via-primary/50 to-primary"></div>
+      <div className="absolute inset-0 bg-gradient-to-b from-transparent via-primary/60 to-primary"></div>
 
       <div className="relative z-10 container mx-auto px-4 sm:px-6 lg:px-8 py-32">
         <h1
